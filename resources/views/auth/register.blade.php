@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Log in</title>
+    <title>Client | Register</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -17,13 +17,19 @@
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <style>
+        .register-box{
+            width: 500px;
+        }
+    </style>
 </head>
 <body class="hold-transition register-page">
+    @include('message')
     <div class="register-box">
         <div class="card">
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Register a new membership</p>
-                    <form method="POST" action="{{ route('client-register') }}">
+                    <form method="POST" action="{{ route('client-register') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
@@ -67,7 +73,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <input id="date_of_birth" type="text" class="form-control @error('date_of_birth') is-invalid @enderror"
+                                <input id="date_of_birth" type="date" class="form-control @error('date_of_birth') is-invalid @enderror"
                                        name="date_of_birth" value="{{ old('date_of_birth') }}" placeholder="Date of birth" required autocomplete="date_of_birth">
 
                                 @error('date_of_birth')
@@ -123,6 +129,14 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-12 offset-md-2">
+                                Already have a client account?
+                                <a href="{{ route('client-login') }}">
+                                    {{ __('Login') }}
+                                </a>
                             </div>
                         </div>
                     </form>
