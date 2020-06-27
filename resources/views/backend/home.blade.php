@@ -26,6 +26,26 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Story list</h3>
+
+                                        <div class="card-tools">
+                                            <form action="{{ route('admin.story.search') }}" method="post">
+                                                @csrf
+                                                <div class="input-group input-group-sm" style="width: 350px;">
+                                                    <input type="text" value="{{ old('search') }}" name="search" class="form-control float-right" placeholder="Search by title, body, section, and tags">
+
+                                                    <div class="input-group-append">
+                                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                                    </div>
+
+                                                    <div class="input-group-append ml-3">
+                                                        <a href="{{ route('admin.manage_post') }}" class="btn btn-success float-right">Reset</a>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                     <div class="card-body">
                                         <table class="table table-bordered">
                                             <thead>

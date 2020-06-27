@@ -157,6 +157,17 @@
                 margin-left: 0px;
             }
         }
+
+        .no_record {
+            line-height: 70vh;
+            min-height: 70vh;
+            text-align: center;
+        }
+        .no_record h3 {
+            line-height: 1.5;
+            display: inline-block;
+            vertical-align: middle;
+        }
     </style>
 @endsection
 @section('home_content')
@@ -166,149 +177,155 @@
             <!-- Timelime example  -->
             <div class="row my-timeline">
                 <div class="col-md-12">
+                    @if(count($stories)>0)
                     <!-- The time line -->
-                    <div class="timeline">
-                        @foreach($stories as $story)
-                        <!-- /.timeline-label -->
-                            <div>
-                                <div class="timeline-item">
-                                    <span class="time pt-4"><i class="fas fa-clock"></i> {{ $story->created_at->diffForHumans() }}</span>
-                                    <h3 class="pl-2 pt-2 pb-2 border-bottom">
-                                        <a href="#">
-                                            @if($story->client->avatar)
-                                                <img style="width: 40px; height: 40px;" src="{{ url('storage/client/', $story->client->avatar) }}"
-                                                     class="img-circle img-fluid" alt="">
-                                            @else
-                                                <img style="width: 40px; height: 40px;" src="{{ url('storage/client/avatar04.png') }}"
-                                                     class="img-circle img-fluid" alt="">
-                                            @endif
-                                            <span class="pl-2">{{ $story->client->name }}</span>
-                                        </a>
-                                    </h3>
-                                    <div class="timeline-header" style="border: 0;">
-                                        {{ $story->title }}
-                                    </div>
-                                    <div class="timeline-body">
-                                        {!! $story->description !!}
-                                        <div class="">
-                                            <img style="width: 100%; max-height: 400px; object-fit: cover;"
-                                                 src="{{ url('storage/stories', $story->img) }}" alt="">
-                                            <h5>{{ $story->img_caption }}</h5>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-footer border-top">
-                                        <div class="row">
-                                            <div class="col-md-6 text-center">
-                                                <a class="btn btn-sm pointer" href="#"><i class="fa fa-comments"
-                                                                                          aria-hidden="true"></i>
-                                                    Comment</a>
-                                            </div>
-                                            <div class="col-md-6 text-center">
-                                                @if( Auth::guard('client')->user())
-                                                    <a class="btn btn-sm" href="{{ route('storey.share', $story->id) }}"><i class="fa fa-share-alt"
-                                                                                      aria-hidden="true"></i>
-                                                        Share</a>
+                        <div class="timeline">
+                            @foreach($stories as $story)
+                            <!-- /.timeline-label -->
+                                <div>
+                                    <div class="timeline-item">
+                                        <span class="time pt-4"><i class="fas fa-clock"></i> {{ $story->created_at->diffForHumans() }}</span>
+                                        <h3 class="pl-2 pt-2 pb-2 border-bottom">
+                                            <a href="#">
+                                                @if($story->client->avatar)
+                                                    <img style="width: 40px; height: 40px;" src="{{ url('storage/client/', $story->client->avatar) }}"
+                                                         class="img-circle img-fluid" alt="">
+                                                @else
+                                                    <img style="width: 40px; height: 40px;" src="{{ url('storage/client/avatar04.png') }}"
+                                                         class="img-circle img-fluid" alt="">
                                                 @endif
+                                                <span class="pl-2">{{ $story->client->name }}</span>
+                                            </a>
+                                        </h3>
+                                        <div class="timeline-header" style="border: 0;">
+                                            {{ $story->title }}
+                                        </div>
+                                        <div class="timeline-body">
+                                            {!! $story->description !!}
+                                            <div class="">
+                                                <img style="width: 100%;"
+                                                     src="{{ url('storage/stories', $story->img) }}" alt="">
+                                                <h5>{{ $story->img_caption }}</h5>
                                             </div>
                                         </div>
-
-                                        <div class="container">
+                                        <div class="timeline-footer border-top">
                                             <div class="row">
-                                                <div class="col-12">
-                                                    <div class="comments">
-                                                        <div class="comments-details">
-                                                            <span class="total-comments comments-sort">{{ count($story->comments) }} Comments</span>
-                                                        </div>
-                                                        @if( Auth::guard('client')->user())
-                                                            <div class="comment-box add-comment">
-                                                                <span class="commenter-pic">
-                                                                    @if(Auth::guard('client')->user()->avatar)
-                                                                        <img style="width: 40px; height: 40px;"
-                                                                            src="{{ url('storage/client/', Auth::guard('client')->user()->avatar) }}"
-                                                                            class="img-circle img-fluid">
-                                                                    @else
-                                                                        <img style="width: 40px; height: 40px;"
-                                                                             src="{{ url('storage/client/avatar04.png') }}"
-                                                                             class="img-circle img-fluid" alt="">
-                                                                    @endif
-                                                                </span>
-                                                                <span class="commenter-name">
-                                                                    <form action="{{ route('client.comment.store', $story->id) }}"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        <input type="text"
-                                                                               placeholder="Add a public comment"
-                                                                               name="comment">
-                                                                        <button type="submit" class="btn btn-default">Comment</button>
-                                                                        <button type="cancel" class="btn btn-default">Cancel</button>
-                                                                    </form>
-                                                                </span>
+                                                <div class="col-md-6 text-center">
+                                                    <a class="btn btn-sm pointer" href="#"><i class="fa fa-comments"
+                                                                                              aria-hidden="true"></i>
+                                                        Comment</a>
+                                                </div>
+                                                <div class="col-md-6 text-center">
+                                                    @if( Auth::guard('client')->user())
+                                                        <a class="btn btn-sm" href="{{ route('storey.share', $story->id) }}"><i class="fa fa-share-alt"
+                                                                                          aria-hidden="true"></i>
+                                                            Share</a>
+                                                    @endif
+                                                </div>
+                                            </div>
+
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="comments">
+                                                            <div class="comments-details">
+                                                                <span class="total-comments comments-sort">{{ count($story->comments) }} Comments</span>
                                                             </div>
-                                                        @endif
-                                                        @if($story->comments)
-                                                            @foreach($story->comments as $comment)
-                                                                <div class="comment-box">
+                                                            @if( Auth::guard('client')->user())
+                                                                <div class="comment-box add-comment">
                                                                     <span class="commenter-pic">
-                                                                        @if($comment->client->avatar)
-                                                                            <img style="width: 40px; height: 40px;" src="{{ url('storage/client/', $comment->client->avatar) }}"
+                                                                        @if(Auth::guard('client')->user()->avatar)
+                                                                            <img style="width: 40px; height: 40px;"
+                                                                                src="{{ url('storage/client/', Auth::guard('client')->user()->avatar) }}"
                                                                                 class="img-circle img-fluid">
                                                                         @else
-                                                                            <img style="width: 40px; height: 40px;" src="{{ url('storage/client/avatar04.png') }}"
-                                                                                class="img-circle img-fluid" alt="">
+                                                                            <img style="width: 40px; height: 40px;"
+                                                                                 src="{{ url('storage/client/avatar04.png') }}"
+                                                                                 class="img-circle img-fluid" alt="">
                                                                         @endif
                                                                     </span>
                                                                     <span class="commenter-name">
-                                                                        <a href="#">{{ $comment->client->name }}</a>
-                                                                        <span class="comment-time">{{ $comment->created_at->diffForHumans() }}</span>
-                                                                    </span>
-                                                                    <p class="comment-txt more border-bottom">{{ $comment->comment }}</p>
-                                                                    <div class="comment-meta">
-                                                                        <button type="button" onclick="commentReply({{ $comment->id }})" class="comment-reply">
-                                                                            <i class="fa fa-reply-all" aria-hidden="true"></i>
-                                                                            Reply
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="add-comment comment_reply_form_{{ $comment->id }}" style="display: none;">
-                                                                        <form action="{{ route('client.reply.store', $comment->id) }}"
-                                                                              method="post">
+                                                                        <form action="{{ route('client.comment.store', $story->id) }}"
+                                                                            method="post">
                                                                             @csrf
                                                                             <input type="text"
                                                                                    placeholder="Add a public comment"
-                                                                                   name="reply">
+                                                                                   name="comment">
                                                                             <button type="submit" class="btn btn-default">Comment</button>
-                                                                            <button onclick="commentReplyCancel({{ $comment->id }})" type="button" class="btn btn-default">Cancel</button>
+                                                                            <button type="cancel" class="btn btn-default">Cancel</button>
                                                                         </form>
-                                                                    </div>
-                                                                    @foreach($comment->replies as $reply)
-                                                                        <div class="comment-box replied">
-                                                                            <span class="commenter-pic">
-                                                                                @if($reply->client->avatar)
-                                                                                    <img style="width: 40px; height: 40px;" src="{{ url('storage/client/', $reply->client->avatar) }}"
-                                                                                        class="img-circle img-fluid">
-                                                                                @else
-                                                                                    <img style="width: 40px; height: 40px;" src="{{ url('storage/client/avatar04.png') }}"
-                                                                                        class="img-circle img-fluid" alt="">
-                                                                                @endif
-                                                                            </span>
-                                                                            <span class="commenter-name">
-                                                                                <a href="#">{{ $reply->client->name }}</a>
-                                                                                <span class="comment-time">{{ $reply->created_at->diffForHumans() }}</span>
-                                                                            </span>
-                                                                            <p class="comment-txt more">{{ $reply->reply }}</p>
-                                                                        </div>
-                                                                    @endforeach
+                                                                    </span>
                                                                 </div>
-                                                            @endforeach
-                                                        @endif
+                                                            @endif
+                                                            @if($story->comments)
+                                                                @foreach($story->comments as $comment)
+                                                                    <div class="comment-box">
+                                                                        <span class="commenter-pic">
+                                                                            @if($comment->client->avatar)
+                                                                                <img style="width: 40px; height: 40px;" src="{{ url('storage/client/', $comment->client->avatar) }}"
+                                                                                    class="img-circle img-fluid">
+                                                                            @else
+                                                                                <img style="width: 40px; height: 40px;" src="{{ url('storage/client/avatar04.png') }}"
+                                                                                    class="img-circle img-fluid" alt="">
+                                                                            @endif
+                                                                        </span>
+                                                                        <span class="commenter-name">
+                                                                            <a href="#">{{ $comment->client->name }}</a>
+                                                                            <span class="comment-time">{{ $comment->created_at->diffForHumans() }}</span>
+                                                                        </span>
+                                                                        <p class="comment-txt more border-bottom">{{ $comment->comment }}</p>
+                                                                        <div class="comment-meta">
+                                                                            <button type="button" onclick="commentReply({{ $comment->id }})" class="comment-reply">
+                                                                                <i class="fa fa-reply-all" aria-hidden="true"></i>
+                                                                                Reply
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="add-comment comment_reply_form_{{ $comment->id }}" style="display: none;">
+                                                                            <form action="{{ route('client.reply.store', $comment->id) }}"
+                                                                                  method="post">
+                                                                                @csrf
+                                                                                <input type="text"
+                                                                                       placeholder="Add a public comment"
+                                                                                       name="reply">
+                                                                                <button type="submit" class="btn btn-default">Comment</button>
+                                                                                <button onclick="commentReplyCancel({{ $comment->id }})" type="button" class="btn btn-default">Cancel</button>
+                                                                            </form>
+                                                                        </div>
+                                                                        @foreach($comment->replies as $reply)
+                                                                            <div class="comment-box replied">
+                                                                                <span class="commenter-pic">
+                                                                                    @if($reply->client->avatar)
+                                                                                        <img style="width: 40px; height: 40px;" src="{{ url('storage/client/', $reply->client->avatar) }}"
+                                                                                            class="img-circle img-fluid">
+                                                                                    @else
+                                                                                        <img style="width: 40px; height: 40px;" src="{{ url('storage/client/avatar04.png') }}"
+                                                                                            class="img-circle img-fluid" alt="">
+                                                                                    @endif
+                                                                                </span>
+                                                                                <span class="commenter-name">
+                                                                                    <a href="#">{{ $reply->client->name }}</a>
+                                                                                    <span class="comment-time">{{ $reply->created_at->diffForHumans() }}</span>
+                                                                                </span>
+                                                                                <p class="comment-txt more">{{ $reply->reply }}</p>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                @endforeach
+                                                            @endif
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="no_record">
+                            <h3>No Records Found</h3>
+                        </div>
+                    @endif
                 </div>
                 <!-- /.col -->
             </div>

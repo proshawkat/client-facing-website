@@ -43,7 +43,6 @@ class StoriesController extends Controller
 
         $request->validate([
             'title'     => 'required',
-            'section_id'     => 'required',
             'description'     => 'required',
             'image_caption'     => 'required',
         ]);
@@ -121,7 +120,6 @@ class StoriesController extends Controller
     public function update(Request $request, $id){
         $request->validate([
             'title'     => 'required',
-            'section_id'     => 'required',
             'description'     => 'required',
             'image_caption'     => 'required',
         ]);

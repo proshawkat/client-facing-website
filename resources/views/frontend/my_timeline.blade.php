@@ -163,6 +163,16 @@
                 margin-left: 0px;
             }
         }
+        .no_record {
+            line-height: 70vh;
+            min-height: 70vh;
+            text-align: center;
+        }
+        .no_record h3 {
+            line-height: 1.5;
+            display: inline-block;
+            vertical-align: middle;
+        }
     </style>
 @endsection
 
@@ -176,7 +186,9 @@
                 <a class="btn btn-outline-success" href="{{ route('client.story') }}">Add New Story</a>
             </div>
         </div>
-        <div class="timeline">
+        @if(count($stories)>0)
+        <!-- The time line -->
+            <div class="timeline">
             @foreach($stories as $value)
                 <div>
                     <div class="timeline-item">
@@ -204,7 +216,7 @@
                         <div class="timeline-body">
                             {!! $value->description !!}
                             <div class="">
-                                <img style="width: 100%; max-height: 400px; object-fit: cover;" src="{{ url('storage/stories', $value->img) }}" alt="">
+                                <img style="width: 100%;" src="{{ url('storage/stories', $value->img) }}" alt="">
                                 <h5>{{ $value->img_caption }}</h5>
                             </div>
                         </div>
@@ -321,7 +333,11 @@
             <!-- END timeline item -->
             @endforeach
         </div>
-
+        @else
+            <div class="no_record">
+                <h3>No Records Found</h3>
+            </div>
+        @endif
     </section>
 @endsection
 @section('js')

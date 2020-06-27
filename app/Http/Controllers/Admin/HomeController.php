@@ -137,4 +137,21 @@ class HomeController extends Controller
             'message' => 'Successfully deleted.'
         ]);
     }
+
+    public function storySearch(Request $request){
+        if($search = $request->search){
+            $stories = Story::with('tags')
+                ->orWhereHas('tags' , function($query) use ($search) {
+                    $query->where('name', 'LIKE', "%$search%");
+                })
+                ->orWhereHas('section' , function($query) use ($search) {
+                    $query->where('title', 'LIKE', "%$search%");
+                })
+                ->orWhere('title', 'LIKE', "%$search%")
+                ->orWhere('description', 'LIKE', "%$search%")->get();
+        }else{
+            $stories = Story::latest()->get();
+        }
+        return view('backend.home')->with(['stories'=>$stories]);
+    }
 }

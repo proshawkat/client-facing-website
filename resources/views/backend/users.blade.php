@@ -29,14 +29,17 @@
                                     <div class="card-header">
                                         <h3 class="card-title">User list</h3>
 
-                                        <div class="card-tools">
+                                        <div class="card-tools float-right">
                                             <form action="{{ route('admin.client.search') }}" method="post">
                                                 @csrf
                                                 <div class="input-group input-group-sm" style="width: 350px;">
-                                                    <input type="text" name="search" class="form-control float-right" placeholder="Search by name, email, phone, gender">
+                                                    <input value="{{ old('search') }}" type="text" name="search" class="form-control float-right" placeholder="Search by name, email, phone, gender">
 
                                                     <div class="input-group-append">
                                                         <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                                    </div>
+                                                    <div class="input-group-append ml-3">
+                                                        <a href="{{ route('admin.client.show') }}" class="btn btn-success float-right">Reset</a>
                                                     </div>
                                                 </div>
                                             </form>

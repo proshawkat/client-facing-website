@@ -11,11 +11,11 @@
                         <form method="post" action="{{ route('client.story.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <label for="title" class="col-form-label">Title*</label>
+                                <label for="title" class="col-form-label">Title<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="title" name="title" placeholder="Title">
                             </div>
                             <div class="form-group">
-                                <label for="section_id" class="col-form-label">Section*</label>
+                                <label for="section_id" class="col-form-label">Section</label>
                                 <select id="section_id" class="form-control" name="section_id">
                                         <option value="">Select option</option>
                                         @foreach($sections as $sec)
@@ -28,11 +28,11 @@
                                 <input name="tags" type="text" id="input-tags" class="demo-default" value="">
                             </div>
                             <div class="form-group">
-                                <label for="description" class="col-form-label">Description*</label>
+                                <label for="description" class="col-form-label">Description<span class="text-danger">*</span></label>
                                 <textarea class="textarea" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="image_caption" class="col-form-label">Image Caption*</label>
+                                <label for="image_caption" class="col-form-label">Image Caption<span class="text-danger">*</span></label>
                                 <input type="text" id="image_caption" name="image_caption" class="form-control" value="">
                             </div>
                             <div class="form-group">

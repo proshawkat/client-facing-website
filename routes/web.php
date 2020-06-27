@@ -34,10 +34,18 @@ Route::middleware(['guest'])->group(function(){
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/search', 'Frontend\HomeController@search')->name('admin.client.search');
 
 Route::prefix('admin')->group(function() {
     Route::middleware(['auth'])->group(function () {
+//        section
+
+        Route::get('section/index', 'Admin\SectionController@index')->name('admin.section.index');
+        Route::get('section/create', 'Admin\SectionController@create')->name('admin.section.create');
+        Route::post('section/store', 'Admin\SectionController@store')->name('admin.section.store');
+        Route::post('section/edit', 'Admin\SectionController@edit')->name('admin.section.edit');
+        Route::post('section/update', 'Admin\SectionController@update')->name('admin.section.update');
+        Route::get('/section/destroy/{id}', 'Admin\SectionController@destroy')->name('admin.section.destroy');
+
         Route::get('/manage_post', 'Admin\HomeController@index')->name('admin.manage_post');
         Route::get('/story/block/{id}', 'Admin\HomeController@block')->name('admin.story.block');
         Route::get('/story/unlisted/{id}', 'Admin\HomeController@unlisted')->name('admin.story.unlisted');
@@ -50,6 +58,9 @@ Route::prefix('admin')->group(function() {
         Route::get('/delete/comment/{id}', 'Admin\HomeController@deleteComment')->name('admin.delete.comment');
         Route::get('/delete/comment/{id}', 'Admin\HomeController@deleteComment')->name('admin.delete.comment');
         Route::get('/delete/reply/{id}', 'Admin\HomeController@deleteReply')->name('admin.delete.reply');
+
+        Route::post('client/search', 'Admin\HomeController@clientSearch')->name('admin.client.search');
+        Route::post('story/search', 'Admin\HomeController@storySearch')->name('admin.story.search');
     });
 });
 
