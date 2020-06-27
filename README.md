@@ -5,7 +5,7 @@
     <br>
     php artisan make:admin
     <br>
-    #url example
+    #url example<br>
     http://localhost:8000/login
     
 </div>
