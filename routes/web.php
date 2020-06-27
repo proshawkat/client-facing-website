@@ -38,7 +38,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('admin')->group(function() {
     Route::middleware(['auth'])->group(function () {
 //        section
-
         Route::get('section/index', 'Admin\SectionController@index')->name('admin.section.index');
         Route::get('section/create', 'Admin\SectionController@create')->name('admin.section.create');
         Route::post('section/store', 'Admin\SectionController@store')->name('admin.section.store');
@@ -61,6 +60,11 @@ Route::prefix('admin')->group(function() {
 
         Route::post('client/search', 'Admin\HomeController@clientSearch')->name('admin.client.search');
         Route::post('story/search', 'Admin\HomeController@storySearch')->name('admin.story.search');
+
+        //Admin user
+        Route::get('users/index', 'Admin\AdminController@index')->name('admin.user.index');
+        Route::post('users/store', 'Admin\AdminController@store')->name('admin.user.store');
+        Route::get('users/destroy/{id}', 'Admin\AdminController@destroy')->name('admin.user.destroy');
     });
 });
 

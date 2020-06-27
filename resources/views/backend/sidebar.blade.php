@@ -37,7 +37,13 @@
                 <li class="nav-item">
                     <a href="{{ route('admin.client.show') }}" class="nav-link">
                         <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Users</p>
+                        <p>Client Users</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.user.index') }}" class="nav-link">
+                        <i class="nav-icon far fa-circle text-warning"></i>
+                        <p>Admin Users</p>
                     </a>
                 </li>
             </ul>
